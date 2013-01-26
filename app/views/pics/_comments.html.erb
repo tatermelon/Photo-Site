@@ -1,0 +1,26 @@
+<div class = "tablelabel">Comments:</div>
+<table>
+<% if photo.comments.count != 0 %>
+  <% for comment in photo.comments %>
+    <tr>
+      <td>
+        "<%= comment.comment %>"
+        <% @commentor = User.find(comment.user_id) %>
+        <div class="commentor">
+          <%= link_to(@commentor.first_name+" "+@commentor.last_name, {:controller => "pics", :action => "user", :id => @commentor.id }) %>
+          <span class="timestamp"> 
+            <%= reformatDate(comment.date_time) %>
+          </span>
+        </div>
+        <div class="separator">~~~</div>
+      </td>
+    </tr>
+  <% end %>
+<% else %>
+  <tr>
+    <td class="missingcontent">
+      There are no comments for this photo.
+    </td>
+  </tr>
+<% end %>
+</table>

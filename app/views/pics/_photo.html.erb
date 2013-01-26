@@ -1,0 +1,12 @@
+<% for tag in photo.tags %>
+  <div class=<%= tagClass %> style="left:<%= tag.x_coord %>px; top:<%= tag.y_coord %>px; width:<%= tag.width %>px; height:<%= tag.height %>px">
+  <% @tagged = User.find(tag.user_id) %>
+    <div class="tag-label">
+      <%= @tagged.first_name %> <%= @tagged.last_name %>
+    </div>
+  </div>
+<% end %>
+<% photoId = "photo" + photo.id.to_s  %>
+<div id=<%= photoId %> class="img-wrapper">
+<%= image_tag("/images/"+ photo.file_name, :id => "imgTag") %>
+</div>

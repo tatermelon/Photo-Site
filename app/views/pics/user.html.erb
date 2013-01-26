@@ -1,0 +1,38 @@
+<% content_for :title do %>
+  <%= @user.first_name %>
+<% end %>
+
+<% content_for :header do %>
+  <%= stylesheet_link_tag    "user", :media => "all" %>
+<% end %>
+
+<div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+
+<% for photo in @user.photos %>
+  <div class="photo">
+    <div id="overlay">
+      <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+    </div>
+    <div class="details">
+      <span class="date">Posted on <%= reformatDate(photo.date_time) %></span>
+      <span class="dot">-</span>
+      <span class="photo-info">
+        <% commentLabel = photo.comments.count.to_s + " comment" %>
+        <% if photo.comments.count != 1 %>
+          <% commentLabel += "s" %>
+        <% end %>
+        <%= link_to(commentLabel, 
+        {:controller => "pics", :action => "comment", :id => photo.id }) %>
+      </span>
+      <span class="dot">-</span>
+      <span class="photo-info">
+        <% tagLabel = photo.tags.count.to_s + " tag" %>
+        <% if photo.tags.count != 1 %>
+          <% tagLabel += "s" %>
+        <% end %>
+        <%= link_to(tagLabel, 
+        {:controller => "pics", :action => "tag", :id => photo.id }) %>
+      </span>
+    </div>
+  </div>
+<% end %>

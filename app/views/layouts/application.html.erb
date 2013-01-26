@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title><%= yield :title %></title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <link href='http://fonts.googleapis.com/css?family=Mystery+Quest' rel='stylesheet' type='text/css' />
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css' />
+  <link href='http://fonts.googleapis.com/css?family=Ledger' rel='stylesheet' type='text/css' />
+  <link href='http://fonts.googleapis.com/css?family=Flamenco:300,400' rel='stylesheet' type='text/css' />
+  <%= yield :header %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+  
+  <div id="wrapper">
+    <div id="main">
+      <div class="header">
+        <div class="name">CS142: Web Applications</div>
+      </div>
+      <div class="userInfo">
+        <% if session[:user] %>
+          <span class="emphasis"> Welcome <%= User.find(session[:user])[:first_name] %>!</span>
+          <span class="dot">-</span>
+          <%= link_to("Home", 
+          {:controller => "pics", :action => "users"}) %>
+          <span class="dot">-</span>
+          <%= link_to("Upload Photo", 
+          {:controller => "pics", :action => "photo"}) %>
+          <span class="dot">-</span>
+          <%= link_to("Logout", 
+          {:controller => "user", :action => "logout"}) %>
+        <% else %>
+          <%= link_to("Home", 
+          {:controller => "pics", :action => "users"}) %> 
+          <span class="dot">-</span>
+          <%= link_to("Login", 
+          {:controller => "user", :action => "login"}) %>
+        <% end %>
+      </div>
+      <%= yield %>
+      <div class="separator"></div>
+    </div>
+  </div>
+  
+  <div id="footer">
+    Created by Tatiana Iskandar
+  </div>
+  
+</body>
+</html>

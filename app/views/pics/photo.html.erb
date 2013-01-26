@@ -1,0 +1,12 @@
+<% content_for :title do %>
+  Photo!
+<% end %>
+
+<% if session[:user] %>
+  <%= form_for(:photo, :html => { :multipart => true }, :url => {:action => :post_photo}) do |form| %>
+    <%= form.file_field(:file) %>
+    <%= form.submit "Post Photo" %>
+  <% end %>
+<% else %>
+  Please log in to post photos!
+<% end %>

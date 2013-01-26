@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  Sign up!
+<% end %>
+
+<% @user.errors.full_messages.each do |msg| %>
+  <p><%= msg %></p>
+<% end %>
+
+<%= render :partial => "register_form" %>

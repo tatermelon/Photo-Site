@@ -1,0 +1,33 @@
+<% content_for :title do %>
+  Comment Page
+<% end %>
+
+<% content_for :header do %>
+  <%= stylesheet_link_tag    "user", :media => "all" %>
+<% end %>
+
+<div class="spacer"></div>
+<div class="photo">
+  <%= image_tag("/images/"+@photo.file_name) %> 
+  <div class="spacer"></div>
+  <div class="details">
+    <%= render :partial => "comments", :locals => {:photo => @photo} %>
+    <div class="spacer"></div>
+    <% if session[:user] %>
+      <div class = "tablelabel">Leave Your Comment:</div>
+      <% if flash[:alert] %>
+        <div class="notice"><%= flash[:alert] %></div>
+      <% end %>
+      <div class="comment-form">
+      <%= form_for(@comment, :url => {:action => :post_comment, :id => params[:id]}) do |form| %>
+        <%= form.text_area(:comment) %>
+        </div>
+        <%= form.submit "Publish Your Comment" %>
+        </div>
+      <% end %>
+      </div>
+    <% else %>
+      Please log in to post comments!
+    <% end %>
+  </div>
+</div>

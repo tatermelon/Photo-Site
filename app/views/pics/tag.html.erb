@@ -1,0 +1,63 @@
+<% content_for :title do %>
+  Tag!
+<% end %>
+
+<% content_for :header do %>
+  <%= stylesheet_link_tag    "user", :media => "all" %>
+  <%= javascript_include_tag :Tagger %>
+<% end %>
+
+<div class="photo">
+  
+  <div id="overlay">
+    <div id="tagger"></div>
+    <%= render :partial => "photo", :locals => {:photo => @photo, :tagClass => "tag"} %>
+  </div>
+  
+  <div class="details">
+    <div class="tag-form">
+      <% if session[:user] %>
+        <% user_array = User.all.map { |user| [user.first_name + " " + user.last_name, user.id] } %>
+        <%= form_for(@tag, :url => {:action => :post_tag, :id => params[:id]}) do |form| %>
+          <div id="xPos">
+            <%= form.hidden_field(:x_coord, :value => 0) %>
+          </div>
+          <div id="yPos">
+            <%= form.hidden_field(:y_coord, :value => 0) %>
+          </div>
+          <div id="widthId">
+            <%= form.hidden_field(:width, :value => 0) %>
+          </div>
+          <div id="heightId">
+            <%= form.hidden_field(:height, :value => 0) %>
+          </div>
+          <%= form.select(:user_id, options_for_select(user_array)) %>
+          <%= form.submit "Submit tag" %>
+        <% end %>
+        <script type="text/javascript">
+        //<![CDATA[
+          var tagger = new Tagger("overlay", "tagger", "imgTag", "xPos", "yPos", "widthId", "heightId");
+        //]]>
+        </script>
+      <% else %>
+        Please log in to tag!
+      <% end %>
+    </div>
+    
+    <div class = "tablelabel">In this photo:</div>
+    <table>
+    <% if @photo.tags.count != 0 %>
+      <% for tag in @photo.tags %>
+        <tr>
+          <td>
+            <% @tagged = User.find(tag.user_id) %>
+            <div class="commentor"><%= link_to(@tagged.first_name+" "+@tagged.last_name, {:controller => "pics", :action => "user", :id => @tagged.id }) %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr><td class="missingcontent">There are no tags for this photo.</td></tr>
+    <% end %>
+    </table>
+  </div>
+</div>

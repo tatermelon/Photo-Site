@@ -1,0 +1,41 @@
+<% content_for :header do %>
+  <%= javascript_include_tag :SearchCallback %>
+<% end %>
+
+<div id="homeWrapper">
+  <div id="leftSection">
+    <script type="text/javascript">
+    //<![CDATA[
+      handler = function(response) {
+        element = document.getElementById('search_result');
+        if (element)
+          element.innerHTML = response;
+      }
+      ajax = new AJAX('/pics/search_results?substr=', handler, 'GET');
+    //]]>
+    </script>
+
+    <div id="search_box">
+      Search: 
+      <div><input type="text" id="search_input" onKeyUp="ajax.getData(this.value)"> </input></div>
+    </div>
+
+    <div class = "tablelabel">List of Users:</div>
+    <table>
+      <% for user in @userList %>
+        <tr>
+          <td>
+            <%= link_to(user.first_name+" "+user.last_name, 
+            {:controller => "pics", :action => "user", :id => user.id }) %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div id="search_result">
+    <%= render :partial => "thumbnails", :locals => {:photos => Photo.all} %>
+  </div>
+</div>
+
+<div class="spacer"></div>

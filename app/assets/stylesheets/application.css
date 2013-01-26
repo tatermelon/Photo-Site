@@ -1,0 +1,180 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+*/
+
+html, body {
+  height: 100%;
+}
+
+body {
+  max-width: 855px;
+  text-align: center;
+  margin: 0px auto;
+  padding: 5px;
+  color: #8C8992;
+  font-family: "Flamenco", "Poiret One", "Helvetica";
+  font-weight: 300; 
+  background-color:#FBFFF2;
+}
+
+.header {
+  background-color:#FBFFF2;
+  background-image:url(/images/hummingbird2.jpg);
+  background-position:bottom right;
+  background-repeat:no-repeat;
+  background-size:550px;
+  margin: 20px 0px 30px;
+  padding: 30px 0 60px;
+  height: 60px;
+}
+
+.name {
+  font-family: "Mystery Quest";
+  font-size: 73px;
+  color: #AEAAB6;
+  text-align: left;
+}
+
+.tablelabel {
+  text-align: left;
+  margin-top: 10px;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+p {
+  text-align: left;
+}
+
+a{
+  color: #663A99;
+  font-size: 20px;
+  font-family: "Flamenco", serif;
+  font-weight: 400;
+  text-decoration:none;
+}
+
+a:hover {
+  color: #E15A8B;
+}
+
+.dot {
+  font-family: Helvetica;
+  color: #62B29D;
+  margin:5px;
+}
+
+.emphasis {
+  font-style: italic;
+  font-size: 20px;
+  color: #62B29D;
+}
+
+#leftSection {
+  float: left;
+}
+
+#search_result {
+  float: right;
+  width: 575px;
+  margin-right: 20px;
+}
+
+.spacer {
+  clear: both;
+  margin:30px;
+}
+
+#search_box {
+  width: 100%;
+  font-size: 25px;
+  font-weight: 400;
+  text-align: left;
+  margin: 0px 5px 20px 0px;
+}
+
+#search_input {
+  width:230px;
+  height:20px;
+  font-size: 15px;
+}
+
+.clipwrapper{
+  position:relative;
+  background-color: grey;
+  height:145px;
+  width:145px;
+}
+
+.clip {
+  position:absolute;
+  clip:rect(0px 145px 145px 0px);
+}
+
+.clip img{
+  max-width:225px;
+}
+
+.clip a{
+  width: 146px;
+}
+
+.filler {
+  height: 100%;
+  width: 70%;
+}
+
+.user_form table{
+  color: #858197;
+  font-size: 25px;
+  text-align: right;
+  width: auto;
+  margin: auto;
+}
+
+.userInfo {
+  text-align: right;
+  padding: 0px 10px 20px;
+}
+
+.uploadPhoto {
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.newComment {
+  padding: 10px;
+}
+
+.userInfo a{
+  font-size: 18px;
+}
+
+.notice {
+  color :#991F4F;
+  font-style: bold;
+}
+
+table {
+  text-align: left;
+  color: #D4686B;
+  margin: 0px;
+  width: 100%;
+}
+
+#wrapper {
+  min-height: 100%;
+  margin-bottom: -50px;
+}
+
+#main {
+  padding-bottom: 50px;
+}
+
+#footer {
+  padding: 30px 0 10px;
+  font-size: 14px;
+  color: #AEAAB6;
+}

@@ -1,0 +1,27 @@
+<% content_for :title do %>
+  Welcome!
+<% end %>
+
+<div class="user_form">
+  <%= form_for(@user, :url => {:action => :post_login}) do |form| %>
+    <table>
+      <tr>
+        <td>Username:</td>
+        <td><%= form.text_field(:login) %></td>
+      </tr>
+      <tr>
+        <td>Password:</td>
+        <td><%= form.password_field(:password) %></td>
+      </tr>
+      <tr>
+        <td></td>
+      <% if flash[:alert] %>
+        <td class="notice"><%= flash[:alert] %></td>
+      <% end %>
+      </tr>
+    </table>
+    <div><%= form.submit "Login User" %></div>
+    <div id="register"><%= link_to("Register", 
+{:controller => "user", :action => "register"}) %></div>
+  <% end %>
+</div>

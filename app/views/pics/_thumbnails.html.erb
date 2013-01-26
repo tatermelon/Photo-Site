@@ -1,0 +1,24 @@
+<table cellspacing="1" cellpadding="0" class="thumbnail-table">
+<% count = 1 %>
+<% for photo in photos %>
+  <% if count % 4 == 1 %>
+    <tr>
+  <% end %>
+  <td class="thumbnail">
+    <div class="clipwrapper">
+      <% photoId = "thumb" + photo.id.to_s  %>
+      <div class="clip" id=<%= photoId %>>
+        <%= link_to(image_tag("/images/"+ photo.file_name, :id => "imgThumbTag"), {:controller => "pics", :action => "user", :id => photo.user_id, :anchor => "photo" + photo.id.to_s}) %>
+      </div>
+    </div>
+  </td>
+  <% if count % 4 == 0 %>
+    </tr>
+  <% end %>
+  <% count += 1 %>
+<% end %>
+<% if (count - 1) % 4 != 0 %>
+  <td class="filler"><div></div></td>
+  </tr>
+<% end %>
+</table>
