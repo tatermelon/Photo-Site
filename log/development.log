@@ -363,3 +363,355 @@ Migrating to CreateTags (20120525050349)
  AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
  ORDER BY i.relname
 [0m
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 16:01:11 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (11.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+Compiled user.css  (0ms)  (pid 45996)
+  [1m[35mPhoto Load (0.6ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 1
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+  Rendered pics/user.html.erb within layouts/application (240.9ms)
+Completed 500 Internal Server Error in 371ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb__2623510319738832085_70174645376080'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.5ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (12.7ms)
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 16:01:36 -0800
+Processing by PicsController#users as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (15.8ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (3.7ms)
+  Rendered pics/users.html.erb within layouts/application (49.8ms)
+Completed 200 OK in 75ms (Views: 57.6ms | ActiveRecord: 16.2ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 16:01:36 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 16:01:36 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 16:01:36 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 16:01:36 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 16:01:36 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 16:01:36 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/user/2" for 127.0.0.1 at 2013-01-26 16:01:38 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mPhoto Load (26.1ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 2
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 2
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 2
+  Rendered pics/user.html.erb within layouts/application (29.1ms)
+Completed 500 Internal Server Error in 33ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 2
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 2):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb__2623510319738832085_70174645376080'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.5ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (8.7ms)
+
+
+Started GET "/pics/user/5" for 127.0.0.1 at 2013-01-26 16:02:05 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "5"]]
+  [1m[35mPhoto Load (0.7ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 5
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+  Rendered pics/user.html.erb within layouts/application (2.6ms)
+Completed 500 Internal Server Error in 6ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb__2623510319738832085_70174645376080'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.3ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (8.3ms)
+
+
+Started GET "/user" for 127.0.0.1 at 2013-01-26 16:02:22 -0800
+
+AbstractController::ActionNotFound (The action 'index' could not be found for UserController):
+  actionpack (3.2.1) lib/abstract_controller/base.rb:116:in `process'
+  actionpack (3.2.1) lib/abstract_controller/rendering.rb:45:in `process'
+  actionpack (3.2.1) lib/action_controller/metal.rb:203:in `dispatch'
+  actionpack (3.2.1) lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+  actionpack (3.2.1) lib/action_controller/metal.rb:246:in `block in action'
+  actionpack (3.2.1) lib/action_dispatch/routing/route_set.rb:66:in `call'
+  actionpack (3.2.1) lib/action_dispatch/routing/route_set.rb:66:in `dispatch'
+  actionpack (3.2.1) lib/action_dispatch/routing/route_set.rb:30:in `call'
+  journey (1.0.4) lib/journey/router.rb:68:in `block in call'
+  journey (1.0.4) lib/journey/router.rb:56:in `each'
+  journey (1.0.4) lib/journey/router.rb:56:in `call'
+  actionpack (3.2.1) lib/action_dispatch/routing/route_set.rb:589:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+  rack (1.4.4) lib/rack/etag.rb:23:in `call'
+  rack (1.4.4) lib/rack/conditionalget.rb:25:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/head.rb:14:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/flash.rb:242:in `call'
+  rack (1.4.4) lib/rack/session/abstract/id.rb:210:in `context'
+  rack (1.4.4) lib/rack/session/abstract/id.rb:205:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/cookies.rb:338:in `call'
+  activerecord (3.2.1) lib/active_record/query_cache.rb:64:in `call'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:443:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:405:in `_run__3692551489653496373__call__2359563080293413123__callbacks'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/reloader.rb:65:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/remote_ip.rb:31:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:16:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.1) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.1) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.4) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.4) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.1) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.4) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/static.rb:53:in `call'
+  railties (3.2.1) lib/rails/engine.rb:479:in `call'
+  railties (3.2.1) lib/rails/application.rb:220:in `call'
+  rack (1.4.4) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.1) lib/rails/rack/log_tailer.rb:14:in `call'
+  rack (1.4.4) lib/rack/handler/webrick.rb:59:in `service'
+  /Users/tatianaiskandar/.rvm/rubies/ruby-1.9.3-p125/lib/ruby/1.9.1/webrick/httpserver.rb:138:in `service'
+  /Users/tatianaiskandar/.rvm/rubies/ruby-1.9.3-p125/lib/ruby/1.9.1/webrick/httpserver.rb:94:in `run'
+  /Users/tatianaiskandar/.rvm/rubies/ruby-1.9.3-p125/lib/ruby/1.9.1/webrick/server.rb:191:in `block in start_thread'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/unknown_action.erb within rescues/layout (0.7ms)
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 16:02:30 -0800
+Processing by PicsController#users as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (0.4ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (3.2ms)
+  Rendered pics/users.html.erb within layouts/application (8.6ms)
+Completed 200 OK in 16ms (Views: 14.1ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:30 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:30 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:30 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 16:02:30 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:30 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:30 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 16:02:33 -0800
+Processing by PicsController#users as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (0.6ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (3.6ms)
+  Rendered pics/users.html.erb within layouts/application (8.1ms)
+Completed 200 OK in 15ms (Views: 13.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:33 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:33 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 16:02:33 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:33 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:33 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:34 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/user/login" for 127.0.0.1 at 2013-01-26 16:02:36 -0800
+Processing by UserController#login as HTML
+  Rendered user/login.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 22ms (Views: 21.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 16:02:36 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:36 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:36 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:36 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:36 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:36 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 16:02:38 -0800
+Processing by PicsController#users as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (0.4ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (4.4ms)
+  Rendered pics/users.html.erb within layouts/application (9.4ms)
+Completed 200 OK in 16ms (Views: 13.7ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 16:02:38 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:38 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:38 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:38 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:38 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 16:02:38 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/user/5" for 127.0.0.1 at 2013-01-26 16:02:48 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "5"]]
+  [1m[35mPhoto Load (0.6ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 5
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+  Rendered pics/user.html.erb within layouts/application (2.6ms)
+Completed 500 Internal Server Error in 6ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb__2623510319738832085_70174645376080'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.0ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.9ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (7.4ms)
