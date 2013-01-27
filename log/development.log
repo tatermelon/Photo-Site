@@ -715,3 +715,2395 @@ HINT:  No operator matches the given name and argument type(s). You might need t
   Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.0ms)
   Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.9ms)
   Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (7.4ms)
+  [1m[36m (58.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20120427184135)
+Migrating to CreatePhotos (20120501061634)
+Migrating to CreateComments (20120501061705)
+Migrating to LoadData (20120501062245)
+Migrating to AddSessionsTable (20120502195859)
+Migrating to AddLogin (20120517050226)
+Migrating to AddPasswords (20120518021106)
+Migrating to CreateTags (20120525050349)
+  [1m[35m (5.9ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (18.3ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'comments'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (1.0ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'photos'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (2.6ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_sessions_on_session_id on sessions (2.3ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 16426
+ AND a.attnum IN (2)
+
+  [1m[36mColumns for index index_sessions_on_updated_at on sessions (0.9ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 16426
+ AND a.attnum IN (5)
+[0m
+  [1m[35m (0.7ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tags'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (0.6ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 17:05:09 -0800
+Processing by PicsController#users as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (29.1ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (4.7ms)
+  Rendered pics/users.html.erb within layouts/application (87.6ms)
+Completed 200 OK in 212ms (Views: 154.9ms | ActiveRecord: 34.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:05:10 -0800
+Served asset /application.css - 304 Not Modified (2ms)
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:05:12 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (30.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+  [1m[35mPhoto Load (0.9ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 1
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+  Rendered pics/user.html.erb within layouts/application (44.1ms)
+Completed 500 Internal Server Error in 78ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb___1287965962514041180_70352619676140'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (33.9ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (40.0ms)
+  [1m[36m (4.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (2.0ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.7ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (2.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateUsers (20120427184135)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (4.1ms)[0m  CREATE TABLE "users" ("id" serial primary key, "first_name" character varying(255), "last_name" character varying(255)) 
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120427184135')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreatePhotos (20120501061634)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (4.0ms)[0m  CREATE TABLE "photos" ("id" serial primary key, "user_id" character varying(255), "date_time" timestamp, "file_name" character varying(255)) 
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501061634')[0m
+  [1m[35m (1.1ms)[0m  COMMIT
+Migrating to CreateComments (20120501061705)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.3ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "photo_id" character varying(255), "user_id" character varying(255), "date_time" timestamp, "comment" character varying(255)) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501061705')[0m
+  [1m[35m (0.9ms)[0m  COMMIT
+Migrating to LoadData (20120501062245)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.6ms)[0m  DELETE FROM "comments"
+  [1m[36mSQL (2.3ms)[0m  [1mDELETE FROM "photos"[0m
+  [1m[35mSQL (2.5ms)[0m  DELETE FROM "users"
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "Justin"], ["last_name", "Bieber"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "Paris"], ["last_name", "Hilton"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "Barack"], ["last_name", "Obama"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "Santa"], ["last_name", "Claus"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "John"], ["last_name", "Ousterhout"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "<Funny>"], ["last_name", "&lt;name"]]
+  [1m[36mSQL (10.8ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sun, 30 Aug 2009 10:44:23 UTC +00:00], ["file_name", "ouster.jpg"], ["user_id", 5]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Mon, 13 Sep 2010 20:00:00 UTC +00:00], ["file_name", "bieber1.jpg"], ["user_id", 1]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Mon, 13 Sep 2010 20:05:03 UTC +00:00], ["file_name", "bieber2.jpg"], ["user_id", 1]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Wed, 18 Nov 2009 18:02:00 UTC +00:00], ["file_name", "hilton1.jpg"], ["user_id", 2]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sun, 20 Sep 2009 17:30:00 UTC +00:00], ["file_name", "hilton2.jpg"], ["user_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Fri, 10 Jul 2009 16:02:49 UTC +00:00], ["file_name", "obama1.jpg"], ["user_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Thu, 18 Mar 2010 23:48:00 UTC +00:00], ["file_name", "obama2.jpg"], ["user_id", 3]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Mon, 30 Aug 2010 14:26:00 UTC +00:00], ["file_name", "obama3.jpg"], ["user_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sat, 04 Sep 2010 09:16:32 UTC +00:00], ["file_name", "santa1.jpg"], ["user_id", 4]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "Learning new programming languages is hard..."], ["date_time", Wed, 02 Sep 2009 14:01:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "This is another comment, with a bit more text; if the text gets long enough, does it wrap properly from line to line?"], ["date_time", Wed, 02 Sep 2009 14:02:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "If you see this text in <b>boldface</b> then HTML escaping isn't working properly."], ["date_time", Wed, 02 Sep 2009 14:06:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "No guys, she is *not* my mom.  She's my date."], ["date_time", Tue, 14 Sep 2010 18:07:00 UTC +00:00], ["photo_id", 2], ["user_id", 1]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "I came up with lots of comments for this photo, but unfortunately none of them are printable."], ["date_time", Sun, 28 Feb 2010 17:45:13 UTC +00:00], ["photo_id", 5], ["user_id", 5]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "Hey Barack, great form! Do u s'pose u could give me n Lindsay some bowling tips? xxoo Paris"], ["date_time", Thu, 02 Sep 2010 14:07:00 UTC +00:00], ["photo_id", 7], ["user_id", 2]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "Sorry Paris, but no can do; my poll numbers are already bad enough..."], ["date_time", Thu, 02 Sep 2010 14:07:00 UTC +00:00], ["photo_id", 7], ["user_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "We're off to a Justin Bieber concert"], ["date_time", Mon, 06 Sep 2010 13:59:33 UTC +00:00], ["photo_id", 8], ["user_id", 3]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "I'm going to be watching how well you do in CS 142!"], ["date_time", Sat, 04 Sep 2010 10:14:32 UTC +00:00], ["photo_id", 9], ["user_id", 4]]
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501062245')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to AddSessionsTable (20120502195859)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.4ms)[0m  CREATE TABLE "sessions" ("id" serial primary key, "session_id" character varying(255) NOT NULL, "data" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (0.9ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (1.0ms)[0m  CREATE INDEX "index_sessions_on_session_id" ON "sessions" ("session_id")
+  [1m[36m (0.8ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_sessions_on_session_id on sessions (0.3ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24616
+ AND a.attnum IN (2)
+
+  [1m[36m (1.2ms)[0m  [1mCREATE INDEX "index_sessions_on_updated_at" ON "sessions" ("updated_at")[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120502195859')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to AddLogin (20120517050226)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "users" ADD COLUMN "login" character varying(255)[0m
+  [1m[35mUser Load (4.0ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36m (0.6ms)[0m  [1mUPDATE "users" SET "login" = 'bieber' WHERE "users"."id" = 1[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "login" = 'hilton' WHERE "users"."id" = 2
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "login" = 'obama' WHERE "users"."id" = 3[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "login" = 'claus' WHERE "users"."id" = 4
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "login" = 'ousterhout' WHERE "users"."id" = 5[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "login" = '&lt;name' WHERE "users"."id" = 6
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120517050226')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AddPasswords (20120518021106)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "users" ADD COLUMN "password_digest" character varying(255)
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ADD COLUMN "salt" character varying(255)[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36m (0.6ms)[0m  [1mUPDATE "users" SET "password_digest" = '9d0d623b10137c59881b68f9cb4624d9bbf5e6c2' WHERE "users"."id" = 1[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = 'd8908ebc4b5ae7f70c4fa70a3de26bae' WHERE "users"."id" = 1
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = 'd190676edf7d24bbe817b0fae57c60a218668401' WHERE "users"."id" = 2[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = 'ed65c1f13e22b938b8a87141e960fcd7' WHERE "users"."id" = 2
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = '6e40132ae2ead6c2e9ee726b683a948159e8e082' WHERE "users"."id" = 3[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = 'b798095ec80ae263b1cb94370cf76671' WHERE "users"."id" = 3
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = '8dc67c1bcb2b27ae47bd165a1d3e26d6d60a8fe0' WHERE "users"."id" = 4[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = '6347ef09b62d9aab64b48655e2799bae' WHERE "users"."id" = 4
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = 'a3a4dfddbd7bb6e8d9f6ffe10d66eccb01030a87' WHERE "users"."id" = 5[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = '169602b44c25f88daba703e409a9fb92' WHERE "users"."id" = 5
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = '7dcdd77b2d5b8ccaa16a6a972c33065f5b2dec4e' WHERE "users"."id" = 6[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = 'fa6d7d459859c4aaf4887b4ffa7774b5' WHERE "users"."id" = 6
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120518021106')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateTags (20120525050349)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.4ms)[0m  CREATE TABLE "tags" ("id" serial primary key, "user_id" character varying(255), "photo_id" character varying(255), "x_coord" integer, "y_coord" integer, "width" integer, "height" integer) 
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120525050349')[0m
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (4.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (6.2ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'comments'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (0.9ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'photos'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (1.2ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index index_sessions_on_session_id on sessions (0.6ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24616
+ AND a.attnum IN (2)
+[0m
+  [1m[35mColumns for index index_sessions_on_updated_at on sessions (0.3ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24616
+ AND a.attnum IN (5)
+
+  [1m[36m (0.9ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tags'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (0.7ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:08:03 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (4.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+  [1m[35mPhoto Load (0.7ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 1
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+  Rendered pics/user.html.erb within layouts/application (68.3ms)
+Completed 500 Internal Server Error in 105ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb__3254880572648293069_70186585651260'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.6ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (7.7ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:08:05 -0800
+Served asset /application.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:08:05 -0800
+Served asset /jquery.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:08:05 -0800
+Served asset /Tagger.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:08:05 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:08:05 -0800
+Served asset /SearchCallback.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:08:05 -0800
+Served asset /application.js - 304 Not Modified (10ms)
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 17:08:06 -0800
+Processing by PicsController#users as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (4.4ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (4.1ms)
+  Rendered pics/users.html.erb within layouts/application (26.7ms)
+Completed 200 OK in 107ms (Views: 100.3ms | ActiveRecord: 4.9ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:08:07 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/pics/user/5" for 127.0.0.1 at 2013-01-26 17:08:13 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "5"]]
+  [1m[35mPhoto Load (0.7ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 5
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+  Rendered pics/user.html.erb within layouts/application (3.0ms)
+Completed 500 Internal Server Error in 6ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb__3254880572648293069_70186585651260'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.4ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.9ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (7.0ms)
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:08:25 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+  [1m[35mPhoto Load (0.7ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 1
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+  Rendered pics/user.html.erb within layouts/application (3.8ms)
+Completed 500 Internal Server Error in 8ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb__3254880572648293069_70186585651260'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.4ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.9ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (7.0ms)
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 17:18:58 -0800
+Processing by PicsController#users as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (0.6ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (3.8ms)
+  Rendered pics/users.html.erb within layouts/application (65.0ms)
+Completed 200 OK in 150ms (Views: 123.0ms | ActiveRecord: 6.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:18:59 -0800
+Served asset /application.css - 304 Not Modified (3ms)
+
+
+Started GET "/pics/user/5" for 127.0.0.1 at 2013-01-26 17:19:37 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "5"]]
+  [1m[35mPhoto Load (0.7ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 5
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+  Rendered pics/user.html.erb within layouts/application (38.0ms)
+Completed 500 Internal Server Error in 42ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb__2411979537818140624_70173114586480'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (31.8ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.9ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (35.5ms)
+  [1m[36m (74.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20120427184135)
+Migrating to CreatePhotos (20120501061634)
+Migrating to CreateComments (20120501061705)
+Migrating to LoadData (20120501062245)
+Migrating to AddSessionsTable (20120502195859)
+Migrating to AddLogin (20120517050226)
+Migrating to AddPasswords (20120518021106)
+Migrating to CreateTags (20120525050349)
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (14.0ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'comments'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (0.8ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'photos'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.1ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_sessions_on_session_id on sessions (0.3ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24616
+ AND a.attnum IN (2)
+
+  [1m[36mColumns for index index_sessions_on_updated_at on sessions (0.2ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24616
+ AND a.attnum IN (5)
+[0m
+  [1m[35m (0.7ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tags'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (0.6ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[36m (4.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (2.2ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (2.2ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (2.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateUsers (20120427184135)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (5.2ms)[0m  CREATE TABLE "users" ("id" serial primary key, "first_name" character varying(255), "last_name" character varying(255)) 
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120427184135')[0m
+  [1m[35m (0.8ms)[0m  COMMIT
+Migrating to CreatePhotos (20120501061634)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.5ms)[0m  CREATE TABLE "photos" ("id" serial primary key, "user_id" character varying(255), "date_time" timestamp, "file_name" character varying(255)) 
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501061634')[0m
+  [1m[35m (0.9ms)[0m  COMMIT
+Migrating to CreateComments (20120501061705)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.4ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "photo_id" character varying(255), "user_id" character varying(255), "date_time" timestamp, "comment" character varying(255)) 
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501061705')[0m
+  [1m[35m (0.8ms)[0m  COMMIT
+Migrating to LoadData (20120501062245)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.7ms)[0m  DELETE FROM "comments"
+  [1m[36mSQL (2.6ms)[0m  [1mDELETE FROM "photos"[0m
+  [1m[35mSQL (2.7ms)[0m  DELETE FROM "users"
+  [1m[36mSQL (2.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "Justin"], ["last_name", "Bieber"]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "Paris"], ["last_name", "Hilton"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "Barack"], ["last_name", "Obama"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "Santa"], ["last_name", "Claus"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "John"], ["last_name", "Ousterhout"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "<Funny>"], ["last_name", "&lt;name"]]
+  [1m[36mSQL (14.4ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sun, 30 Aug 2009 10:44:23 UTC +00:00], ["file_name", "ouster.jpg"], ["user_id", 5]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Mon, 13 Sep 2010 20:00:00 UTC +00:00], ["file_name", "bieber1.jpg"], ["user_id", 1]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Mon, 13 Sep 2010 20:05:03 UTC +00:00], ["file_name", "bieber2.jpg"], ["user_id", 1]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Wed, 18 Nov 2009 18:02:00 UTC +00:00], ["file_name", "hilton1.jpg"], ["user_id", 2]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sun, 20 Sep 2009 17:30:00 UTC +00:00], ["file_name", "hilton2.jpg"], ["user_id", 2]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Fri, 10 Jul 2009 16:02:49 UTC +00:00], ["file_name", "obama1.jpg"], ["user_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Thu, 18 Mar 2010 23:48:00 UTC +00:00], ["file_name", "obama2.jpg"], ["user_id", 3]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Mon, 30 Aug 2010 14:26:00 UTC +00:00], ["file_name", "obama3.jpg"], ["user_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sat, 04 Sep 2010 09:16:32 UTC +00:00], ["file_name", "santa1.jpg"], ["user_id", 4]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "Learning new programming languages is hard..."], ["date_time", Wed, 02 Sep 2009 14:01:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "This is another comment, with a bit more text; if the text gets long enough, does it wrap properly from line to line?"], ["date_time", Wed, 02 Sep 2009 14:02:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "If you see this text in <b>boldface</b> then HTML escaping isn't working properly."], ["date_time", Wed, 02 Sep 2009 14:06:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "No guys, she is *not* my mom.  She's my date."], ["date_time", Tue, 14 Sep 2010 18:07:00 UTC +00:00], ["photo_id", 2], ["user_id", 1]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "I came up with lots of comments for this photo, but unfortunately none of them are printable."], ["date_time", Sun, 28 Feb 2010 17:45:13 UTC +00:00], ["photo_id", 5], ["user_id", 5]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "Hey Barack, great form! Do u s'pose u could give me n Lindsay some bowling tips? xxoo Paris"], ["date_time", Thu, 02 Sep 2010 14:07:00 UTC +00:00], ["photo_id", 7], ["user_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "Sorry Paris, but no can do; my poll numbers are already bad enough..."], ["date_time", Thu, 02 Sep 2010 14:07:00 UTC +00:00], ["photo_id", 7], ["user_id", 3]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "We're off to a Justin Bieber concert"], ["date_time", Mon, 06 Sep 2010 13:59:33 UTC +00:00], ["photo_id", 8], ["user_id", 3]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "I'm going to be watching how well you do in CS 142!"], ["date_time", Sat, 04 Sep 2010 10:14:32 UTC +00:00], ["photo_id", 9], ["user_id", 4]]
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501062245')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to AddSessionsTable (20120502195859)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (5.0ms)[0m  CREATE TABLE "sessions" ("id" serial primary key, "session_id" character varying(255) NOT NULL, "data" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (1.4ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (1.3ms)[0m  CREATE INDEX "index_sessions_on_session_id" ON "sessions" ("session_id")
+  [1m[36m (1.1ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_sessions_on_session_id on sessions (0.6ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24678
+ AND a.attnum IN (2)
+
+  [1m[36m (1.3ms)[0m  [1mCREATE INDEX "index_sessions_on_updated_at" ON "sessions" ("updated_at")[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120502195859')
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+Migrating to AddLogin (20120517050226)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD COLUMN "login" character varying(255)[0m
+  [1m[35mUser Load (5.6ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36m (0.7ms)[0m  [1mUPDATE "users" SET "login" = 'bieber' WHERE "users"."id" = 1[0m
+  [1m[35m (0.4ms)[0m  UPDATE "users" SET "login" = 'hilton' WHERE "users"."id" = 2
+  [1m[36m (0.3ms)[0m  [1mUPDATE "users" SET "login" = 'obama' WHERE "users"."id" = 3[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "login" = 'claus' WHERE "users"."id" = 4
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "login" = 'ousterhout' WHERE "users"."id" = 5[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "login" = '&lt;name' WHERE "users"."id" = 6
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120517050226')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AddPasswords (20120518021106)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ADD COLUMN "password_digest" character varying(255)
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ADD COLUMN "salt" character varying(255)[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36m (0.6ms)[0m  [1mUPDATE "users" SET "password_digest" = 'd382cce5863aaee44b8c4c736de6e3ba0dd5c17e' WHERE "users"."id" = 1[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = '1a43055306c0eadb1c62d22847a6882d' WHERE "users"."id" = 1
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = '3eac0cc2abd69baa99bcec2b04585f89af03a87f' WHERE "users"."id" = 2[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = '1d6cd589ba58018a59020007455e74fa' WHERE "users"."id" = 2
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = '06ade502c65556902cf9fea5d219814280dd4c52' WHERE "users"."id" = 3[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = 'b973086771636d616b505f349230a43f' WHERE "users"."id" = 3
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = '4df8f00a6cc1879714236d65c4d9c72108e0aa4d' WHERE "users"."id" = 4[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = 'bfa603620fb89133026f5926b93e3302' WHERE "users"."id" = 4
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = '60df35ca105d092a4c6d8ccc3485f98c803dc1f4' WHERE "users"."id" = 5[0m
+  [1m[35m (0.4ms)[0m  UPDATE "users" SET "salt" = '0199db4d1a5d387660e474d918369172' WHERE "users"."id" = 5
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = '74cd3d092d28690be18624e5c017a4da7d3ac9e0' WHERE "users"."id" = 6[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = '0bfd0169b624feddadce7c10510d886e' WHERE "users"."id" = 6
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120518021106')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateTags (20120525050349)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (4.3ms)[0m  CREATE TABLE "tags" ("id" serial primary key, "user_id" character varying(255), "photo_id" character varying(255), "x_coord" integer, "y_coord" integer, "width" integer, "height" integer) 
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120525050349')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (4.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (4.1ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'comments'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (0.7ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'photos'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (1.2ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index index_sessions_on_session_id on sessions (0.3ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24678
+ AND a.attnum IN (2)
+[0m
+  [1m[35mColumns for index index_sessions_on_updated_at on sessions (0.2ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24678
+ AND a.attnum IN (5)
+
+  [1m[36m (0.9ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tags'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (0.7ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (4.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (2.2ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (2.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateUsers (20120427184135)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (4.4ms)[0m  CREATE TABLE "users" ("id" serial primary key, "first_name" character varying(255), "last_name" character varying(255)) 
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120427184135')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreatePhotos (20120501061634)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.1ms)[0m  CREATE TABLE "photos" ("id" serial primary key, "user_id" character varying(255), "date_time" timestamp, "file_name" character varying(255)) 
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501061634')[0m
+  [1m[35m (1.0ms)[0m  COMMIT
+Migrating to CreateComments (20120501061705)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.1ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "photo_id" character varying(255), "user_id" character varying(255), "date_time" timestamp, "comment" character varying(255)) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501061705')[0m
+  [1m[35m (1.0ms)[0m  COMMIT
+Migrating to LoadData (20120501062245)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.9ms)[0m  DELETE FROM "comments"
+  [1m[36mSQL (2.5ms)[0m  [1mDELETE FROM "photos"[0m
+  [1m[35mSQL (2.6ms)[0m  DELETE FROM "users"
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "Justin"], ["last_name", "Bieber"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "Paris"], ["last_name", "Hilton"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "Barack"], ["last_name", "Obama"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "Santa"], ["last_name", "Claus"]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "John"], ["last_name", "Ousterhout"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "<Funny>"], ["last_name", "&lt;name"]]
+  [1m[36mSQL (4.0ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sun, 30 Aug 2009 10:44:23 UTC +00:00], ["file_name", "ouster.jpg"], ["user_id", 5]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Mon, 13 Sep 2010 20:00:00 UTC +00:00], ["file_name", "bieber1.jpg"], ["user_id", 1]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Mon, 13 Sep 2010 20:05:03 UTC +00:00], ["file_name", "bieber2.jpg"], ["user_id", 1]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Wed, 18 Nov 2009 18:02:00 UTC +00:00], ["file_name", "hilton1.jpg"], ["user_id", 2]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sun, 20 Sep 2009 17:30:00 UTC +00:00], ["file_name", "hilton2.jpg"], ["user_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Fri, 10 Jul 2009 16:02:49 UTC +00:00], ["file_name", "obama1.jpg"], ["user_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Thu, 18 Mar 2010 23:48:00 UTC +00:00], ["file_name", "obama2.jpg"], ["user_id", 3]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Mon, 30 Aug 2010 14:26:00 UTC +00:00], ["file_name", "obama3.jpg"], ["user_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sat, 04 Sep 2010 09:16:32 UTC +00:00], ["file_name", "santa1.jpg"], ["user_id", 4]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "Learning new programming languages is hard..."], ["date_time", Wed, 02 Sep 2009 14:01:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "This is another comment, with a bit more text; if the text gets long enough, does it wrap properly from line to line?"], ["date_time", Wed, 02 Sep 2009 14:02:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "If you see this text in <b>boldface</b> then HTML escaping isn't working properly."], ["date_time", Wed, 02 Sep 2009 14:06:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "No guys, she is *not* my mom.  She's my date."], ["date_time", Tue, 14 Sep 2010 18:07:00 UTC +00:00], ["photo_id", 2], ["user_id", 1]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "I came up with lots of comments for this photo, but unfortunately none of them are printable."], ["date_time", Sun, 28 Feb 2010 17:45:13 UTC +00:00], ["photo_id", 5], ["user_id", 5]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "Hey Barack, great form! Do u s'pose u could give me n Lindsay some bowling tips? xxoo Paris"], ["date_time", Thu, 02 Sep 2010 14:07:00 UTC +00:00], ["photo_id", 7], ["user_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "Sorry Paris, but no can do; my poll numbers are already bad enough..."], ["date_time", Thu, 02 Sep 2010 14:07:00 UTC +00:00], ["photo_id", 7], ["user_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "We're off to a Justin Bieber concert"], ["date_time", Mon, 06 Sep 2010 13:59:33 UTC +00:00], ["photo_id", 8], ["user_id", 3]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "I'm going to be watching how well you do in CS 142!"], ["date_time", Sat, 04 Sep 2010 10:14:32 UTC +00:00], ["photo_id", 9], ["user_id", 4]]
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501062245')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to AddSessionsTable (20120502195859)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (4.1ms)[0m  CREATE TABLE "sessions" ("id" serial primary key, "session_id" character varying(255) NOT NULL, "data" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (1.0ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (0.9ms)[0m  CREATE INDEX "index_sessions_on_session_id" ON "sessions" ("session_id")
+  [1m[36m (0.9ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_sessions_on_session_id on sessions (0.3ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24741
+ AND a.attnum IN (2)
+
+  [1m[36m (1.1ms)[0m  [1mCREATE INDEX "index_sessions_on_updated_at" ON "sessions" ("updated_at")[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120502195859')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+Migrating to AddLogin (20120517050226)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD COLUMN "login" character varying(255)[0m
+  [1m[35mUser Load (4.0ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36m (0.7ms)[0m  [1mUPDATE "users" SET "login" = 'bieber' WHERE "users"."id" = 1[0m
+  [1m[35m (0.3ms)[0m  UPDATE "users" SET "login" = 'hilton' WHERE "users"."id" = 2
+  [1m[36m (0.3ms)[0m  [1mUPDATE "users" SET "login" = 'obama' WHERE "users"."id" = 3[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "login" = 'claus' WHERE "users"."id" = 4
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "login" = 'ousterhout' WHERE "users"."id" = 5[0m
+  [1m[35m (0.4ms)[0m  UPDATE "users" SET "login" = '&lt;name' WHERE "users"."id" = 6
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120517050226')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AddPasswords (20120518021106)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "users" ADD COLUMN "password_digest" character varying(255)
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ADD COLUMN "salt" character varying(255)[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36m (0.5ms)[0m  [1mUPDATE "users" SET "password_digest" = '86a3c71f8e79bd88739a281aef552743dd5cea5e' WHERE "users"."id" = 1[0m
+  [1m[35m (0.4ms)[0m  UPDATE "users" SET "salt" = '07e4e09d0e597410dce9cf6d1fb52745' WHERE "users"."id" = 1
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = 'a94c8cdebd0144d447ab277f151aa4796307bd70' WHERE "users"."id" = 2[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = '4294adba2edf7edc1135d44381547ecf' WHERE "users"."id" = 2
+  [1m[36m (0.3ms)[0m  [1mUPDATE "users" SET "password_digest" = '0b05d4e8d49f7d00a065a9c06cda66eb4bb15731' WHERE "users"."id" = 3[0m
+  [1m[35m (0.3ms)[0m  UPDATE "users" SET "salt" = 'de4ade97893d9bf1b8f3dad1001feb7b' WHERE "users"."id" = 3
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = 'f10bd8161e4d6114c8b721a549427f927ff294f8' WHERE "users"."id" = 4[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = 'ff0395b39be343a3bad7a25b3dd70447' WHERE "users"."id" = 4
+  [1m[36m (0.3ms)[0m  [1mUPDATE "users" SET "password_digest" = 'c892ab59ce186bde6947588e1fbf9c9f6bbe3434' WHERE "users"."id" = 5[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = '0fb2e0cc3f27aee03babd5dca7477782' WHERE "users"."id" = 5
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = 'c823110b1db013ba2e09edf4febf5585ac840789' WHERE "users"."id" = 6[0m
+  [1m[35m (0.3ms)[0m  UPDATE "users" SET "salt" = '4b1825999a693264c34359caacf45e4e' WHERE "users"."id" = 6
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120518021106')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateTags (20120525050349)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "tags" ("id" serial primary key, "user_id" character varying(255), "photo_id" character varying(255), "x_coord" integer, "y_coord" integer, "width" integer, "height" integer) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120525050349')[0m
+  [1m[35m (0.8ms)[0m  COMMIT
+  [1m[36m (4.0ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (1.9ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'comments'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (0.8ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'photos'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (1.1ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index index_sessions_on_session_id on sessions (0.4ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24741
+ AND a.attnum IN (2)
+[0m
+  [1m[35mColumns for index index_sessions_on_updated_at on sessions (0.2ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24741
+ AND a.attnum IN (5)
+
+  [1m[36m (0.7ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tags'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (0.6ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 17:33:44 -0800
+Processing by PicsController#users as HTML
+  [1m[36mUser Load (4.0ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (3.8ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (3.9ms)
+  Rendered pics/users.html.erb within layouts/application (64.7ms)
+Completed 200 OK in 141ms (Views: 110.3ms | ActiveRecord: 12.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:33:44 -0800
+Served asset /application.css - 304 Not Modified (44ms)
+
+
+Started GET "/pics/user/5" for 127.0.0.1 at 2013-01-26 17:33:51 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "5"]]
+  [1m[35mPhoto Load (0.9ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 5
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+  Rendered pics/user.html.erb within layouts/application (42.8ms)
+Completed 500 Internal Server Error in 47ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb__1673789892671516869_70248045026440'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.4ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.9ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (7.0ms)
+  [1m[36m (4.8ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (2.4ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (2.1ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (2.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateUsers (20120427184135)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (4.5ms)[0m  CREATE TABLE "users" ("id" serial primary key, "first_name" character varying(255), "last_name" character varying(255)) 
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120427184135')[0m
+  [1m[35m (0.8ms)[0m  COMMIT
+Migrating to CreatePhotos (20120501061634)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (4.1ms)[0m  CREATE TABLE "photos" ("id" serial primary key, "user_id" character varying(255), "date_time" timestamp, "file_name" character varying(255)) 
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501061634')[0m
+  [1m[35m (0.9ms)[0m  COMMIT
+Migrating to CreateComments (20120501061705)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.5ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "photo_id" character varying(255), "user_id" character varying(255), "date_time" timestamp, "comment" character varying(255)) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501061705')[0m
+  [1m[35m (1.5ms)[0m  COMMIT
+Migrating to LoadData (20120501062245)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.9ms)[0m  DELETE FROM "comments"
+  [1m[36mSQL (2.3ms)[0m  [1mDELETE FROM "photos"[0m
+  [1m[35mSQL (2.6ms)[0m  DELETE FROM "users"
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "Justin"], ["last_name", "Bieber"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "Paris"], ["last_name", "Hilton"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "Barack"], ["last_name", "Obama"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "Santa"], ["last_name", "Claus"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"[0m  [["first_name", "John"], ["last_name", "Ousterhout"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name") VALUES ($1, $2) RETURNING "id"  [["first_name", "<Funny>"], ["last_name", "&lt;name"]]
+  [1m[36mSQL (4.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sun, 30 Aug 2009 10:44:23 UTC +00:00], ["file_name", "ouster.jpg"], ["user_id", 5]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Mon, 13 Sep 2010 20:00:00 UTC +00:00], ["file_name", "bieber1.jpg"], ["user_id", 1]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Mon, 13 Sep 2010 20:05:03 UTC +00:00], ["file_name", "bieber2.jpg"], ["user_id", 1]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Wed, 18 Nov 2009 18:02:00 UTC +00:00], ["file_name", "hilton1.jpg"], ["user_id", 2]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sun, 20 Sep 2009 17:30:00 UTC +00:00], ["file_name", "hilton2.jpg"], ["user_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Fri, 10 Jul 2009 16:02:49 UTC +00:00], ["file_name", "obama1.jpg"], ["user_id", 3]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Thu, 18 Mar 2010 23:48:00 UTC +00:00], ["file_name", "obama2.jpg"], ["user_id", 3]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Mon, 30 Aug 2010 14:26:00 UTC +00:00], ["file_name", "obama3.jpg"], ["user_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sat, 04 Sep 2010 09:16:32 UTC +00:00], ["file_name", "santa1.jpg"], ["user_id", 4]]
+  [1m[35mSQL (1.4ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "Learning new programming languages is hard..."], ["date_time", Wed, 02 Sep 2009 14:01:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "This is another comment, with a bit more text; if the text gets long enough, does it wrap properly from line to line?"], ["date_time", Wed, 02 Sep 2009 14:02:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "If you see this text in <b>boldface</b> then HTML escaping isn't working properly."], ["date_time", Wed, 02 Sep 2009 14:06:00 UTC +00:00], ["photo_id", 1], ["user_id", 5]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "No guys, she is *not* my mom.  She's my date."], ["date_time", Tue, 14 Sep 2010 18:07:00 UTC +00:00], ["photo_id", 2], ["user_id", 1]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "I came up with lots of comments for this photo, but unfortunately none of them are printable."], ["date_time", Sun, 28 Feb 2010 17:45:13 UTC +00:00], ["photo_id", 5], ["user_id", 5]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "Hey Barack, great form! Do u s'pose u could give me n Lindsay some bowling tips? xxoo Paris"], ["date_time", Thu, 02 Sep 2010 14:07:00 UTC +00:00], ["photo_id", 7], ["user_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "Sorry Paris, but no can do; my poll numbers are already bad enough..."], ["date_time", Thu, 02 Sep 2010 14:07:00 UTC +00:00], ["photo_id", 7], ["user_id", 3]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["comment", "We're off to a Justin Bieber concert"], ["date_time", Mon, 06 Sep 2010 13:59:33 UTC +00:00], ["photo_id", 8], ["user_id", 3]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("comment", "date_time", "photo_id", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["comment", "I'm going to be watching how well you do in CS 142!"], ["date_time", Sat, 04 Sep 2010 10:14:32 UTC +00:00], ["photo_id", 9], ["user_id", 4]]
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120501062245')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to AddSessionsTable (20120502195859)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (4.7ms)[0m  CREATE TABLE "sessions" ("id" serial primary key, "session_id" character varying(255) NOT NULL, "data" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (1.1ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (0.9ms)[0m  CREATE INDEX "index_sessions_on_session_id" ON "sessions" ("session_id")
+  [1m[36m (0.9ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_sessions_on_session_id on sessions (0.6ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24804
+ AND a.attnum IN (2)
+
+  [1m[36m (0.9ms)[0m  [1mCREATE INDEX "index_sessions_on_updated_at" ON "sessions" ("updated_at")[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120502195859')
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+Migrating to AddLogin (20120517050226)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD COLUMN "login" character varying(255)[0m
+  [1m[35mUser Load (4.0ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36m (0.7ms)[0m  [1mUPDATE "users" SET "login" = 'bieber' WHERE "users"."id" = 1[0m
+  [1m[35m (0.3ms)[0m  UPDATE "users" SET "login" = 'hilton' WHERE "users"."id" = 2
+  [1m[36m (0.3ms)[0m  [1mUPDATE "users" SET "login" = 'obama' WHERE "users"."id" = 3[0m
+  [1m[35m (0.4ms)[0m  UPDATE "users" SET "login" = 'claus' WHERE "users"."id" = 4
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "login" = 'ousterhout' WHERE "users"."id" = 5[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "login" = '&lt;name' WHERE "users"."id" = 6
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120517050226')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AddPasswords (20120518021106)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "users" ADD COLUMN "password_digest" character varying(255)
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ADD COLUMN "salt" character varying(255)[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36m (0.5ms)[0m  [1mUPDATE "users" SET "password_digest" = 'c1559089bb6606965db14fb4b187a49841175c03' WHERE "users"."id" = 1[0m
+  [1m[35m (0.3ms)[0m  UPDATE "users" SET "salt" = '025d66d314d7f2717f2f09284679952a' WHERE "users"."id" = 1
+  [1m[36m (0.3ms)[0m  [1mUPDATE "users" SET "password_digest" = 'dc7b78bc50a1917b6cbb4cc43c653b0a3b3eff83' WHERE "users"."id" = 2[0m
+  [1m[35m (0.3ms)[0m  UPDATE "users" SET "salt" = '17771b646a221c9f7a2b696dbfbf5e01' WHERE "users"."id" = 2
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = '38f799891f40ffdcf4ced53c9c58ff474775d7bc' WHERE "users"."id" = 3[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = '79a95b08d9eb4659fbe09c42ed46f4bc' WHERE "users"."id" = 3
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = '5326822599f7547a2ff7d9183e3c41ca27e04520' WHERE "users"."id" = 4[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = 'fd2eae22537d2c480e4c399174bf5fbc' WHERE "users"."id" = 4
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = '7c3163539786100cd120457d3c0e988f2aecd0ef' WHERE "users"."id" = 5[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = 'b8fb1fed9d9edec1ceef0e8e31cabfe4' WHERE "users"."id" = 5
+  [1m[36m (0.2ms)[0m  [1mUPDATE "users" SET "password_digest" = 'dce69da979be3579bf984304421df9ebe40648a6' WHERE "users"."id" = 6[0m
+  [1m[35m (0.2ms)[0m  UPDATE "users" SET "salt" = 'ed01e3d92dd49716c90791c1020568de' WHERE "users"."id" = 6
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120518021106')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateTags (20120525050349)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.5ms)[0m  CREATE TABLE "tags" ("id" serial primary key, "user_id" character varying(255), "photo_id" character varying(255), "x_coord" integer, "y_coord" integer, "width" integer, "height" integer) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120525050349')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (10.0ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (1.8ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'comments'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.0ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'photos'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (1.4ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index index_sessions_on_session_id on sessions (0.4ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24804
+ AND a.attnum IN (2)
+[0m
+  [1m[35mColumns for index index_sessions_on_updated_at on sessions (0.2ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24804
+ AND a.attnum IN (5)
+
+  [1m[36m (0.7ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tags'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (0.6ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+
+
+Started GET "/pics/user/5" for 127.0.0.1 at 2013-01-26 17:39:11 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (1.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "5"]]
+  [1m[35mPhoto Load (0.7ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 5
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+  Rendered pics/user.html.erb within layouts/application (91.7ms)
+Completed 500 Internal Server Error in 127ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 5):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb__3646531211141971746_70118988363920'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.8ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (7.7ms)
+  [1m[36m (0.1ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (240.7ms)[0m  DROP DATABASE IF EXISTS "photos_development"
+  [1m[36m (0.1ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (248.2ms)[0m  DROP DATABASE IF EXISTS "test_db"
+  [1m[36m (0.1ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (715.5ms)[0m  CREATE DATABASE "photos_development" ENCODING = 'utf8'
+  [1m[36m (0.1ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (661.5ms)[0m  CREATE DATABASE "test_db" ENCODING = 'utf8'
+  [1m[36m (19.0ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "photo_id" character varying(255), "user_id" character varying(255), "date_time" timestamp, "comment" character varying(255)) [0m
+  [1m[35m (4.2ms)[0m  CREATE TABLE "photos" ("id" serial primary key, "user_id" character varying(255), "date_time" timestamp, "file_name" character varying(255)) 
+  [1m[36m (4.0ms)[0m  [1mCREATE TABLE "sessions" ("id" serial primary key, "session_id" character varying(255) NOT NULL, "data" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (2.5ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.5ms)[0m  [1mCREATE INDEX "index_sessions_on_session_id" ON "sessions" ("session_id")[0m
+  [1m[35m (1.1ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index index_sessions_on_session_id on sessions (1.5ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24852
+ AND a.attnum IN (2)
+[0m
+  [1m[35m (1.2ms)[0m  CREATE INDEX "index_sessions_on_updated_at" ON "sessions" ("updated_at")
+  [1m[36m (7.7ms)[0m  [1mCREATE TABLE "tags" ("id" serial primary key, "user_id" character varying(255), "photo_id" character varying(255), "x_coord" integer, "y_coord" integer, "width" integer, "height" integer) [0m
+  [1m[35m (4.9ms)[0m  CREATE TABLE "users" ("id" serial primary key, "first_name" character varying(255), "last_name" character varying(255), "login" character varying(255), "password_digest" character varying(255), "salt" character varying(255)) 
+  [1m[36m (1.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.0ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.3ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (2.3ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120525050349')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120427184135')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120501061634')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120501061705')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120501062245')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120502195859')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120517050226')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120518021106')
+  [1m[36m (2.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:41:21 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+Completed 500 Internal Server Error in 44ms
+
+ActiveRecord::RecordNotFound (Couldn't find User with id=1):
+  app/controllers/pics_controller.rb:40:in `user'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.2ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.0ms)
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 17:41:30 -0800
+Processing by PicsController#users as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36mPhoto Load (0.6ms)[0m  [1mSELECT "photos".* FROM "photos" [0m
+  Rendered pics/_thumbnails.html.erb (0.9ms)
+  Rendered pics/users.html.erb within layouts/application (85.1ms)
+Completed 200 OK in 132ms (Views: 127.3ms | ActiveRecord: 3.2ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:31 -0800
+Served asset /SearchCallback.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:41:31 -0800
+Served asset /application.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:31 -0800
+Served asset /jquery.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:31 -0800
+Served asset /application.js - 304 Not Modified (7ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:31 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:31 -0800
+Served asset /Tagger.js - 304 Not Modified (1ms)
+
+
+Started GET "/user/login" for 127.0.0.1 at 2013-01-26 17:41:41 -0800
+Processing by UserController#login as HTML
+  Rendered user/login.html.erb within layouts/application (4.2ms)
+Completed 200 OK in 57ms (Views: 50.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:41:41 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:41 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:41 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:41 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:41 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:41 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/user/register" for 127.0.0.1 at 2013-01-26 17:41:44 -0800
+Processing by UserController#register as HTML
+  Rendered user/_register_form.html.erb (27.1ms)
+  Rendered user/register.html.erb within layouts/application (54.6ms)
+Completed 200 OK in 80ms (Views: 78.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:41:44 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:44 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:44 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:44 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:44 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:41:44 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/user/post_register" for 127.0.0.1 at 2013-01-26 17:41:50 -0800
+Processing by UserController#post_register as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"+ytBqbCNvyjaMWw+pC4zFi1N2ok9q899CaG1U4GpXdA=", "user"=>{"first_name"=>"blah", "last_name"=>"blah", "login"=>"hi", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Register User"}
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 FROM "users" WHERE "users"."login" = 'hi' LIMIT 1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "users" ("first_name", "last_name", "login", "password_digest", "salt") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["first_name", "blah"], ["last_name", "blah"], ["login", "hi"], ["password_digest", "698ddba56c0687cb4d51b572fbec8579ee386afb"], ["salt", "afcf9d7b549a885d108ad183968c98e0"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Exists (2.7ms)[0m  SELECT 1 FROM "users" WHERE ("users"."login" = 'hi' AND "users"."id" != 1) LIMIT 1
+Redirected to http://localhost:3000/pics/user/1
+Completed 302 Found in 143ms (ActiveRecord: 5.0ms)
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:41:50 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+  [1m[35mPhoto Load (0.8ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 1
+PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+  Rendered pics/user.html.erb within layouts/application (26.6ms)
+Completed 500 Internal Server Error in 30ms
+
+ActionView::Template::Error (PG::Error: ERROR:  operator does not exist: character varying = integer
+LINE 1: ...ELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1
+                                                                    ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+: SELECT "photos".* FROM "photos"  WHERE "photos"."user_id" = 1):
+    8: 
+    9: <div class="page-header"><%= @user.first_name %> <%= @user.last_name %>'s Photos:</div>
+    10: 
+    11: <% for photo in @user.photos %>
+    12:   <div class="photo">
+    13:     <div id="overlay">
+    14:       <%= render :partial => "photo", :locals => {:photo => photo, :tagClass => "hiddenTag"} %>
+  app/views/pics/user.html.erb:11:in `_app_views_pics_user_html_erb___1614530900327300414_70341856871860'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.5ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.8ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (7.0ms)
+  [1m[36m (0.2ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (268.4ms)[0m  DROP DATABASE IF EXISTS "photos_development"
+  [1m[36m (0.1ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (186.0ms)[0m  DROP DATABASE IF EXISTS "test_db"
+  [1m[36m (0.1ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (1532.0ms)[0m  CREATE DATABASE "photos_development" ENCODING = 'utf8'
+  [1m[36m (0.1ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (658.6ms)[0m  CREATE DATABASE "test_db" ENCODING = 'utf8'
+  [1m[36m (9.6ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "photo_id" integer, "user_id" integer, "date_time" timestamp, "comment" character varying(255)) [0m
+  [1m[35m (3.9ms)[0m  CREATE TABLE "photos" ("id" serial primary key, "user_id" integer, "date_time" timestamp, "file_name" character varying(255)) 
+  [1m[36m (4.5ms)[0m  [1mCREATE TABLE "sessions" ("id" serial primary key, "session_id" character varying(255) NOT NULL, "data" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (3.5ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.7ms)[0m  [1mCREATE INDEX "index_sessions_on_session_id" ON "sessions" ("session_id")[0m
+  [1m[35m (0.9ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index index_sessions_on_session_id on sessions (1.5ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24909
+ AND a.attnum IN (2)
+[0m
+  [1m[35m (1.5ms)[0m  CREATE INDEX "index_sessions_on_updated_at" ON "sessions" ("updated_at")
+  [1m[36m (3.2ms)[0m  [1mCREATE TABLE "tags" ("id" serial primary key, "user_id" integer, "photo_id" integer, "x_coord" integer, "y_coord" integer, "width" integer, "height" integer) [0m
+  [1m[35m (7.1ms)[0m  CREATE TABLE "users" ("id" serial primary key, "first_name" character varying(255), "last_name" character varying(255), "login" character varying(255), "password_digest" character varying(255), "salt" character varying(255)) 
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (0.8ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.7ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (2.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120525050349')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120427184135')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120501061634')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120501061705')
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120501062245')[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120502195859')
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120517050226')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120518021106')
+  [1m[36m (2.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:43:58 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+Completed 500 Internal Server Error in 19ms
+
+ActiveRecord::RecordNotFound (Couldn't find User with id=1):
+  app/controllers/pics_controller.rb:40:in `user'
+
+
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.4ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /Users/tatianaiskandar/.rvm/gems/ruby-1.9.3-p125/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (7.8ms)
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 17:44:05 -0800
+Processing by PicsController#users as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36mPhoto Load (0.4ms)[0m  [1mSELECT "photos".* FROM "photos" [0m
+  Rendered pics/_thumbnails.html.erb (0.8ms)
+  Rendered pics/users.html.erb within layouts/application (19.5ms)
+Completed 200 OK in 66ms (Views: 61.2ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:44:05 -0800
+Served asset /application.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:05 -0800
+Served asset /jquery.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:05 -0800
+Served asset /Tagger.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:05 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:05 -0800
+Served asset /application.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:05 -0800
+Served asset /SearchCallback.js - 304 Not Modified (2ms)
+
+
+Started GET "/user/login" for 127.0.0.1 at 2013-01-26 17:44:08 -0800
+Processing by UserController#login as HTML
+  Rendered user/login.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 15ms (Views: 7.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:44:08 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:08 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:08 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:08 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:08 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:08 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/user/register" for 127.0.0.1 at 2013-01-26 17:44:11 -0800
+Processing by UserController#register as HTML
+  Rendered user/_register_form.html.erb (2.5ms)
+  Rendered user/register.html.erb within layouts/application (4.1ms)
+Completed 200 OK in 41ms (Views: 40.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:44:11 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:11 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:11 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:11 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:11 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:11 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/user/post_register" for 127.0.0.1 at 2013-01-26 17:44:19 -0800
+Processing by UserController#post_register as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"jO00kmh4eGoJwA9eCTr7eDE6uYrpzliVdxGM4iIw2Rg=", "user"=>{"first_name"=>"afwe", "last_name"=>"afew", "login"=>"afew", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Register User"}
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 FROM "users" WHERE "users"."login" = 'afew' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("first_name", "last_name", "login", "password_digest", "salt") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["first_name", "afwe"], ["last_name", "afew"], ["login", "afew"], ["password_digest", "eadcd80909c07aabc1bd629ab01b490e0f7ab2f8"], ["salt", "81731c605cdd5f8298bd0757fa500995"]]
+  [1m[36m (14.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Exists (2.4ms)[0m  SELECT 1 FROM "users" WHERE ("users"."login" = 'afew' AND "users"."id" != 1) LIMIT 1
+Redirected to http://localhost:3000/pics/user/1
+Completed 302 Found in 38ms (ActiveRecord: 18.4ms)
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:44:19 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+  [1m[35mPhoto Load (0.5ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 1
+  Rendered pics/user.html.erb within layouts/application (82.1ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 92ms (Views: 89.0ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/assets/user.css?body=1" for 127.0.0.1 at 2013-01-26 17:44:19 -0800
+Served asset /user.css - 200 OK (4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:44:19 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:19 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:19 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:19 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:19 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:19 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/users/1" for 127.0.0.1 at 2013-01-26 17:44:22 -0800
+Processing by PicsController#users as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36mPhoto Load (0.3ms)[0m  [1mSELECT "photos".* FROM "photos" [0m
+  Rendered pics/_thumbnails.html.erb (0.1ms)
+  Rendered pics/users.html.erb within layouts/application (3.4ms)
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+Completed 200 OK in 12ms (Views: 10.0ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:44:22 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:22 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:22 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:22 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:22 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:22 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:44:24 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+  [1m[35mPhoto Load (0.6ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 1
+  Rendered pics/user.html.erb within layouts/application (2.0ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 9ms (Views: 6.5ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:44:24 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:24 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:24 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:24 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:24 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:24 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/photo/1" for 127.0.0.1 at 2013-01-26 17:44:26 -0800
+Processing by PicsController#photo as HTML
+  Parameters: {"id"=>"1"}
+  Rendered pics/photo.html.erb within layouts/application (1.6ms)
+  [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+Completed 200 OK in 26ms (Views: 24.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:44:26 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:26 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:26 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:26 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:26 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:26 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started POST "/pics/post_photo/1" for 127.0.0.1 at 2013-01-26 17:44:34 -0800
+Processing by PicsController#post_photo as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"jO00kmh4eGoJwA9eCTr7eDE6uYrpzliVdxGM4iIw2Rg=", "photo"=>{"file"=>#<ActionDispatch::Http::UploadedFile:0x007fa4633486b8 @original_filename="acorns.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"photo[file]\"; filename=\"acorns.jpg\"\r\nContent-Type: image/jpeg\r\n", @tempfile=#<File:/var/folders/jy/jjb0sw9s683gg9s3wy4183300000gn/T/RackMultipart20130126-48216-mhx42t>>}, "commit"=>"Post Photo", "id"=>"1"}
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (5.7ms)[0m  INSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["date_time", Sun, 27 Jan 2013 01:44:34 UTC +00:00], ["file_name", "acorns.jpg"], ["user_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/pics/user/1#photo1
+Completed 302 Found in 62ms (ActiveRecord: 6.7ms)
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:44:34 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", "1"]]
+  [1m[36mPhoto Load (3.2ms)[0m  [1mSELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 1[0m
+  [1m[35mTag Load (0.6ms)[0m  SELECT "tags".* FROM "tags" WHERE "tags"."photo_id" = 1
+  Rendered pics/_photo.html.erb (12.9ms)
+  [1m[36m (0.7ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = 1
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "tags" WHERE "tags"."photo_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "tags" WHERE "tags"."photo_id" = 1
+  Rendered pics/user.html.erb within layouts/application (96.1ms)
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 104ms (Views: 92.0ms | ActiveRecord: 10.8ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:44:34 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:34 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:34 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:34 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:34 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:34 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+  [1m[36m (0.2ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (121.6ms)[0m  DROP DATABASE IF EXISTS "photos_development"
+  [1m[36m (0.2ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (149.6ms)[0m  DROP DATABASE IF EXISTS "test_db"
+  [1m[36m (0.7ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (777.9ms)[0m  CREATE DATABASE "photos_development" ENCODING = 'utf8'
+  [1m[36m (0.1ms)[0m  [1mSET search_path TO public[0m
+  [1m[35m (712.7ms)[0m  CREATE DATABASE "test_db" ENCODING = 'utf8'
+  [1m[36m (8.2ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "photo_id" integer, "user_id" integer, "date_time" timestamp, "comment" character varying(255)) [0m
+  [1m[35m (2.9ms)[0m  CREATE TABLE "photos" ("id" serial primary key, "user_id" integer, "date_time" timestamp, "file_name" character varying(255)) 
+  [1m[36m (4.8ms)[0m  [1mCREATE TABLE "sessions" ("id" serial primary key, "session_id" character varying(255) NOT NULL, "data" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (4.3ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.5ms)[0m  [1mCREATE INDEX "index_sessions_on_session_id" ON "sessions" ("session_id")[0m
+  [1m[35m (1.3ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index index_sessions_on_session_id on sessions (1.0ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24963
+ AND a.attnum IN (2)
+[0m
+  [1m[35m (1.3ms)[0m  CREATE INDEX "index_sessions_on_updated_at" ON "sessions" ("updated_at")
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "tags" ("id" serial primary key, "user_id" integer, "photo_id" integer, "x_coord" integer, "y_coord" integer, "width" integer, "height" integer) [0m
+  [1m[35m (5.6ms)[0m  CREATE TABLE "users" ("id" serial primary key, "first_name" character varying(255), "last_name" character varying(255), "login" character varying(255), "password_digest" character varying(255), "salt" character varying(255)) 
+  [1m[36m (1.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.8ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (2.9ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (3.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120525050349')[0m
+  [1m[35m (0.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120427184135')
+  [1m[36m (2.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120501061634')[0m
+  [1m[35m (1.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120501061705')
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120501062245')[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120502195859')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120517050226')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120518021106')
+  [1m[36m (1.9ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 17:44:59 -0800
+Processing by PicsController#users as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (0.6ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (0.6ms)
+  Rendered pics/users.html.erb within layouts/application (22.1ms)
+Completed 200 OK in 64ms (Views: 44.2ms | ActiveRecord: 6.7ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:59 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:59 -0800
+Served asset /SearchCallback.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:59 -0800
+Served asset /Tagger.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:44:59 -0800
+Served asset /application.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:44:59 -0800
+Served asset /jquery.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:00 -0800
+Served asset /application.js - 304 Not Modified (9ms)
+
+
+Started GET "/user/login" for 127.0.0.1 at 2013-01-26 17:45:03 -0800
+Processing by UserController#login as HTML
+  Rendered user/login.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 95ms (Views: 85.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:45:03 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:03 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:03 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:03 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:03 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:03 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/user/register" for 127.0.0.1 at 2013-01-26 17:45:08 -0800
+Processing by UserController#register as HTML
+  Rendered user/_register_form.html.erb (25.9ms)
+  Rendered user/register.html.erb within layouts/application (31.3ms)
+Completed 200 OK in 55ms (Views: 54.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:45:08 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:08 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:08 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:08 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:08 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:08 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started POST "/user/post_register" for 127.0.0.1 at 2013-01-26 17:45:16 -0800
+Processing by UserController#post_register as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"UvNsqVkKuveUPWIxlNpuFK+oQiTaunU3Rc+zLz6d/2c=", "user"=>{"first_name"=>"Tatiana", "last_name"=>"Iskandar", "login"=>"tatermelon", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Register User"}
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 FROM "users" WHERE "users"."login" = 'tatermelon' LIMIT 1
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "login", "password_digest", "salt") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["first_name", "Tatiana"], ["last_name", "Iskandar"], ["login", "tatermelon"], ["password_digest", "d987dd3be796da1bdd2fb72ee274848bc67cd3a3"], ["salt", "2282c88a9a4287f90e00a0e6d1010058"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Exists (2.8ms)[0m  [1mSELECT 1 FROM "users" WHERE ("users"."login" = 'tatermelon' AND "users"."id" != 1) LIMIT 1[0m
+Redirected to http://localhost:3000/pics/user/1
+Completed 302 Found in 90ms (ActiveRecord: 5.2ms)
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:45:17 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", "1"]]
+  [1m[36mPhoto Load (0.5ms)[0m  [1mSELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 1[0m
+  Rendered pics/user.html.erb within layouts/application (58.4ms)
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+Completed 200 OK in 96ms (Views: 92.8ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:45:17 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:17 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:17 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:17 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:17 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:17 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/photo/1" for 127.0.0.1 at 2013-01-26 17:45:19 -0800
+Processing by PicsController#photo as HTML
+  Parameters: {"id"=>"1"}
+  Rendered pics/photo.html.erb within layouts/application (1.9ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 27ms (Views: 26.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:45:19 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:19 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:19 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:19 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:19 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:20 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pics/post_photo/1" for 127.0.0.1 at 2013-01-26 17:45:35 -0800
+Processing by PicsController#post_photo as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"UvNsqVkKuveUPWIxlNpuFK+oQiTaunU3Rc+zLz6d/2c=", "photo"=>{"file"=>#<ActionDispatch::Http::UploadedFile:0x007fda1343c5e8 @original_filename="colorizedfluffs.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"photo[file]\"; filename=\"colorizedfluffs.jpg\"\r\nContent-Type: image/jpeg\r\n", @tempfile=#<File:/var/folders/jy/jjb0sw9s683gg9s3wy4183300000gn/T/RackMultipart20130126-48249-h2j6p1>>}, "commit"=>"Post Photo", "id"=>"1"}
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "photos" ("date_time", "file_name", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["date_time", Sun, 27 Jan 2013 01:45:35 UTC +00:00], ["file_name", "colorizedfluffs.jpg"], ["user_id", 1]]
+  [1m[35m (7.4ms)[0m  COMMIT
+Redirected to http://localhost:3000/pics/user/1#photo1
+Completed 302 Found in 46ms (ActiveRecord: 8.9ms)
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:45:36 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+  [1m[35mPhoto Load (3.1ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 1
+  [1m[36mTag Load (0.5ms)[0m  [1mSELECT "tags".* FROM "tags" WHERE "tags"."photo_id" = 1[0m
+  Rendered pics/_photo.html.erb (9.7ms)
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "tags" WHERE "tags"."photo_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "tags" WHERE "tags"."photo_id" = 1[0m
+  Rendered pics/user.html.erb within layouts/application (86.9ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+Completed 200 OK in 94ms (Views: 83.4ms | ActiveRecord: 9.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:45:36 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:36 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:36 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:36 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:36 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:36 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/users/1" for 127.0.0.1 at 2013-01-26 17:45:41 -0800
+Processing by PicsController#users as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (0.6ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (0.5ms)
+  Rendered pics/users.html.erb within layouts/application (3.4ms)
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 12ms (Views: 9.7ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:45:41 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:41 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:41 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:41 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:41 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:41 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/user/1" for 127.0.0.1 at 2013-01-26 17:45:43 -0800
+Processing by PicsController#user as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", "1"]]
+  [1m[36mPhoto Load (0.4ms)[0m  [1mSELECT "photos".* FROM "photos" WHERE "photos"."user_id" = 1[0m
+  [1m[35mTag Load (0.3ms)[0m  SELECT "tags".* FROM "tags" WHERE "tags"."photo_id" = 1
+  Rendered pics/_photo.html.erb (1.2ms)
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = 1
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "tags" WHERE "tags"."photo_id" = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "tags" WHERE "tags"."photo_id" = 1
+  Rendered pics/user.html.erb within layouts/application (8.3ms)
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 15ms (Views: 12.1ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:45:43 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:43 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:43 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:43 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:43 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:43 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/tag/1" for 127.0.0.1 at 2013-01-26 17:45:49 -0800
+Processing by PicsController#tag as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mPhoto Load (0.6ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."id" = $1 LIMIT 1  [["id", "1"]]
+  [1m[36mTag Load (0.5ms)[0m  [1mSELECT "tags".* FROM "tags" WHERE "tags"."photo_id" = 1[0m
+  Rendered pics/_photo.html.erb (1.8ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" 
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "tags" WHERE "tags"."photo_id" = 1[0m
+  Rendered pics/tag.html.erb within layouts/application (72.9ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+Completed 200 OK in 101ms (Views: 91.8ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:45:49 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:49 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:50 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:50 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:50 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:50 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started POST "/pics/post_tag/1" for 127.0.0.1 at 2013-01-26 17:45:58 -0800
+Processing by PicsController#post_tag as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"UvNsqVkKuveUPWIxlNpuFK+oQiTaunU3Rc+zLz6d/2c=", "tag"=>{"x_coord"=>"261px", "y_coord"=>"128px", "width"=>"107", "height"=>"89", "user_id"=>"1"}, "commit"=>"Submit tag", "id"=>"1"}
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.4ms)[0m  INSERT INTO "tags" ("height", "photo_id", "user_id", "width", "x_coord", "y_coord") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["height", 89], ["photo_id", 1], ["user_id", 1], ["width", 107], ["x_coord", 261], ["y_coord", 128]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/pics/tag/1
+Completed 302 Found in 8ms (ActiveRecord: 2.2ms)
+
+
+Started GET "/pics/tag/1" for 127.0.0.1 at 2013-01-26 17:45:58 -0800
+Processing by PicsController#tag as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mPhoto Load (0.4ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."id" = $1 LIMIT 1  [["id", "1"]]
+  [1m[36mTag Load (2.7ms)[0m  [1mSELECT "tags".* FROM "tags" WHERE "tags"."photo_id" = 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered pics/_photo.html.erb (6.0ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "tags" WHERE "tags"."photo_id" = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m
+  Rendered pics/tag.html.erb within layouts/application (12.7ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+Completed 200 OK in 19ms (Views: 14.8ms | ActiveRecord: 3.7ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:45:58 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:58 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:58 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:58 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:58 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:45:58 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/users/1" for 127.0.0.1 at 2013-01-26 17:46:01 -0800
+Processing by PicsController#users as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (0.3ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (0.6ms)
+  Rendered pics/users.html.erb within layouts/application (3.3ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 12ms (Views: 10.2ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 17:46:01 -0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 17:46:01 -0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 17:46:01 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 17:46:01 -0800
+Served asset /SearchCallback.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 17:46:01 -0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 17:46:01 -0800
+Served asset /Tagger.js - 304 Not Modified (0ms)
+
+
+Started GET "/pics/search_results?substr=t" for 127.0.0.1 at 2013-01-26 17:46:05 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>"t"}
+  [1m[35mPhoto Load (0.7ms)[0m  SELECT "photos".* FROM "photos" 
+  [1m[36mComment Load (0.5ms)[0m  [1mSELECT "comments".* FROM "comments" [0m
+  [1m[35mTag Load (0.4ms)[0m  SELECT "tags".* FROM "tags" 
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPhoto Load (0.4ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered pics/_thumbnails.html.erb (25.2ms)
+Completed 200 OK in 35ms (Views: 29.4ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/pics/search_results?substr=tat" for 127.0.0.1 at 2013-01-26 17:46:05 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>"tat"}
+  [1m[36mPhoto Load (0.5ms)[0m  [1mSELECT "photos".* FROM "photos" [0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT "comments".* FROM "comments" 
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT "tags".* FROM "tags" [0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPhoto Load (0.2ms)[0m  [1mSELECT "photos".* FROM "photos" WHERE "photos"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered pics/_thumbnails.html.erb (0.9ms)
+Completed 200 OK in 7ms (Views: 3.6ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/pics/search_results?substr=tat" for 127.0.0.1 at 2013-01-26 17:46:05 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>"tat"}
+  [1m[35mPhoto Load (0.2ms)[0m  SELECT "photos".* FROM "photos" 
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT "comments".* FROM "comments" [0m
+  [1m[35mTag Load (0.3ms)[0m  SELECT "tags".* FROM "tags" 
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPhoto Load (0.2ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered pics/_thumbnails.html.erb (0.8ms)
+Completed 200 OK in 7ms (Views: 3.6ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/pics/search_results?substr=ta" for 127.0.0.1 at 2013-01-26 17:46:07 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>"ta"}
+  [1m[36mPhoto Load (0.2ms)[0m  [1mSELECT "photos".* FROM "photos" [0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT "comments".* FROM "comments" 
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT "tags".* FROM "tags" [0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPhoto Load (0.2ms)[0m  [1mSELECT "photos".* FROM "photos" WHERE "photos"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered pics/_thumbnails.html.erb (0.6ms)
+Completed 200 OK in 9ms (Views: 5.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/pics/search_results?substr=t" for 127.0.0.1 at 2013-01-26 17:46:07 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>"t"}
+  [1m[35mPhoto Load (0.3ms)[0m  SELECT "photos".* FROM "photos" 
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT "comments".* FROM "comments" [0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT "tags".* FROM "tags" 
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPhoto Load (0.1ms)[0m  SELECT "photos".* FROM "photos" WHERE "photos"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered pics/_thumbnails.html.erb (0.7ms)
+Completed 200 OK in 6ms (Views: 3.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/pics/search_results?substr=" for 127.0.0.1 at 2013-01-26 17:46:07 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>""}
+  [1m[36mPhoto Load (0.2ms)[0m  [1mSELECT "photos".* FROM "photos" [0m
+  Rendered pics/_thumbnails.html.erb (1.0ms)
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/pics/search_results?substr=" for 127.0.0.1 at 2013-01-26 17:46:07 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>""}
+  [1m[35mPhoto Load (0.3ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (0.7ms)
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/pics/search_results?substr=" for 127.0.0.1 at 2013-01-26 17:46:07 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>""}
+  [1m[36mPhoto Load (0.4ms)[0m  [1mSELECT "photos".* FROM "photos" [0m
+  Rendered pics/_thumbnails.html.erb (0.6ms)
+Completed 200 OK in 4ms (Views: 3.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/pics/search_results?substr=bl" for 127.0.0.1 at 2013-01-26 17:46:11 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>"bl"}
+  [1m[35mPhoto Load (0.4ms)[0m  SELECT "photos".* FROM "photos" 
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT "comments".* FROM "comments" [0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT "tags".* FROM "tags" 
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered pics/_thumbnails.html.erb (0.0ms)
+Completed 200 OK in 5ms (Views: 2.6ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/pics/search_results?substr=bl" for 127.0.0.1 at 2013-01-26 17:46:12 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>"bl"}
+  [1m[35mPhoto Load (0.5ms)[0m  SELECT "photos".* FROM "photos" 
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT "comments".* FROM "comments" [0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT "tags".* FROM "tags" 
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered pics/_thumbnails.html.erb (0.0ms)
+Completed 200 OK in 5ms (Views: 2.4ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/pics/search_results?substr=b" for 127.0.0.1 at 2013-01-26 17:46:12 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>"b"}
+  [1m[35mPhoto Load (0.3ms)[0m  SELECT "photos".* FROM "photos" 
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT "comments".* FROM "comments" [0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT "tags".* FROM "tags" 
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered pics/_thumbnails.html.erb (0.0ms)
+Completed 200 OK in 6ms (Views: 3.0ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/pics/search_results?substr=" for 127.0.0.1 at 2013-01-26 17:46:13 -0800
+Processing by PicsController#search_results as */*
+  Parameters: {"substr"=>""}
+  [1m[35mPhoto Load (0.2ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (0.6ms)
+Completed 200 OK in 4ms (Views: 3.4ms | ActiveRecord: 0.2ms)

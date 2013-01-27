@@ -14,14 +14,14 @@
 ActiveRecord::Schema.define(:version => 20120525050349) do
 
   create_table "comments", :force => true do |t|
-    t.string   "photo_id"
-    t.string   "user_id"
+    t.integer   "photo_id"
+    t.integer   "user_id"
     t.datetime "date_time"
     t.string   "comment"
   end
 
   create_table "photos", :force => true do |t|
-    t.string   "user_id"
+    t.integer   "user_id"
     t.datetime "date_time"
     t.string   "file_name"
   end
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(:version => 20120525050349) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "tags", :force => true do |t|
-    t.string  "user_id"
-    t.string  "photo_id"
+    t.integer  "user_id"
+    t.integer  "photo_id"
     t.integer "x_coord"
     t.integer "y_coord"
     t.integer "width"
