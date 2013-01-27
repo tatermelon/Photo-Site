@@ -3107,3 +3107,37 @@ Processing by PicsController#search_results as */*
   [1m[35mPhoto Load (0.2ms)[0m  SELECT "photos".* FROM "photos" 
   Rendered pics/_thumbnails.html.erb (0.6ms)
 Completed 200 OK in 4ms (Views: 3.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/pics/users" for 127.0.0.1 at 2013-01-26 18:05:58 -0800
+Processing by PicsController#users as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  [1m[35mPhoto Load (0.7ms)[0m  SELECT "photos".* FROM "photos" 
+  Rendered pics/_thumbnails.html.erb (1.3ms)
+  Rendered pics/users.html.erb within layouts/application (46.4ms)
+  [1m[36mUser Load (25.9ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 195ms (Views: 125.7ms | ActiveRecord: 44.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-01-26 18:05:58 -0800
+Served asset /application.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-01-26 18:05:58 -0800
+Served asset /jquery_ujs.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/Tagger.js?body=1" for 127.0.0.1 at 2013-01-26 18:05:58 -0800
+Served asset /Tagger.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/SearchCallback.js?body=1" for 127.0.0.1 at 2013-01-26 18:05:58 -0800
+Served asset /SearchCallback.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-01-26 18:05:58 -0800
+Served asset /application.js - 304 Not Modified (7ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-01-26 18:05:58 -0800
+Served asset /jquery.js - 304 Not Modified (4ms)
